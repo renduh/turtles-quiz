@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Turtles</title>
+  <title>Turtles quiz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
+  <link rel="icon" type="image/x-icon" href="favicon.png">
 <style>
 
 	body,html {
@@ -50,7 +50,8 @@
 	}
 	h2 {
 		letter-spacing: 4px;
-	    margin: 10px 0 17px 0;
+		margin: 10px 0 17px 0;
+		font-size: 40px;
 	}
 	#scores {
 		display: flex;
@@ -62,6 +63,20 @@
 	}
 	#score, #highscore {
 		display:inline-block;
+	}
+	@media only screen and (max-width: 450px) {
+		body,html {
+			font-size: 26px;
+		}
+		button {
+			font-size: 25px;
+		}
+		h1 {
+		    font-size: 60px;
+		}
+		h2 {
+			font-size: 30px;
+		}
 	}
 </style>
 
@@ -132,7 +147,14 @@ function endgame() {
 		localStorage.setItem('highscore', highscore);
 		document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
 	}
-	document.getElementById("quiz").innerHTML = '<br><br>You scored ' + score + '.<br>';
+	if (score < 5 ) {
+		document.getElementById("quiz").innerHTML = '<br><br><h1>Yikes!</h1><br>';
+	} else if (score < 10 ) {
+		document.getElementById("quiz").innerHTML = "<br><br><h1>That's okay I guess</h1><br>";
+	} else {
+		document.getElementById("quiz").innerHTML = '<br><br><h1>Cowabunga Dude!</h1><br>';
+	}
+	document.getElementById("quiz").innerHTML += '<br><br>You scored ' + score + '.<br>';
 	document.getElementById("quiz").innerHTML += '<br><br><br><button onclick="start()">Start again</button>';
 }
 
@@ -140,7 +162,8 @@ function start() {
 	document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
 	score=0;
 	updatescore();
-	document.getElementById("quiz").innerHTML = '<br><br><br><br><br><button onclick="nextquestion()">Start</button>';
+	document.getElementById("quiz").innerHTML = '<h1>Test your<br>Turtle knowledge!</h1>'; 
+	document.getElementById("quiz").innerHTML += '<br><br><br><br><br><button onclick="nextquestion()">Start</button>';
 }
 
 function nextquestion() {
@@ -170,10 +193,7 @@ function nextquestion() {
 	document.getElementById("quiz").innerHTML += answers[3] + "<br>";
 }
 
-
-
 start();
-
 
 </script>
 </body>
