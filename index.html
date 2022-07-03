@@ -137,6 +137,7 @@ function nextquestion() {
 	  	answers[i] = "<button onclick='wrong()'>" + turtles[i][array[randomvalue]] + "</button>";
 	  }
 	}
+	// Randomise answer order
 	answers = answers.sort(() => Math.random() - 0.5);
 	document.getElementById("quiz").innerHTML = "<h1>" + name + "</h1>";
 	document.getElementById("quiz").innerHTML += "<h2>What " + array[randomvalue] + "?</h2>";
