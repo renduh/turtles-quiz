@@ -52,6 +52,17 @@
 		letter-spacing: 4px;
 	    margin: 10px 0 17px 0;
 	}
+	#scores {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		align-content: center;
+		width: 100%;
+	}
+	#score, #highscore {
+		display:inline-block;
+	}
 </style>
 
 </head>
@@ -59,8 +70,10 @@
 <body>
 
 <div id="container">
-	<div id="score">Score: 0</div>  
-	<div id="highscore">Hi-score: 0</div>  
+	<div id="scores">
+		<div id="score">Score: 0</div>  
+		<div id="highscore">Hi-score: 0</div>
+	</div>  
 	<div id="quiz"></div>
 </div>
 
