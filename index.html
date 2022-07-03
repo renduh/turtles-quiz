@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Turtles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+<style>
+
+	body,html {
+		background:#4c9c23;
+		font-family: 'Bangers', cursive;
+		color:#fed82a;
+		font-size: 30px;
+	}
+	#container {
+		display: flex;
+		flex-direction: column;
+		align-content: center;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		text-align: center;
+	}
+	button {
+		margin: 14px;
+		font-family: 'Bangers', cursive;
+		color: #4c9c23;
+		background: #fed82a;
+		font-size: 40px;
+		border: 2px solid #fed82a;
+		border-radius: 40px;
+		padding: 10px 50px;
+		letter-spacing: 1px;
+		cursor: pointer;
+	}
+	button:hover {
+		background: #4c9c23;
+		color: #fed82a;
+	}
+	h1 {
+	    letter-spacing: 5px;
+	    font-size: 100px;
+	    margin: 30px 0 0 0;
+	}
+	h2 {
+		letter-spacing: 4px;
+	    margin: 10px 0 17px 0;
+	}
+</style>
+
+</head>
+
+<body>
+
+<div id="container">
+	<div id="score">Score: 0</div>  
+	<div id="quiz"></div>
+</div>
+
+<script>
+
+var turtles = [
+    {
+      "name": "Leonardo",
+      "trait": "leader, disciplined and skilled",
+      "mask": "blue",
+      "weapon": "two katana swords",
+    },
+    {
+      "name": "Raphael",
+      "trait": "strongest and most reckless",
+      "mask": "red",
+      "weapon": "pair of sai",
+    },
+    {
+      "name": "Donatello",
+      "trait": "intellect to invent gadgets and vehicles",
+      "mask": "purple",
+      "weapon": "bo staff",
+    },
+    {
+      "name": "Michelangelo",
+      "trait": "least disciplined and most fun-loving turtle",
+      "mask": "orange",
+      "weapon": "nunchucks",
+    },
+]
+
+var score = 0;
+
+function updatescore() {
+	document.getElementById("score").innerHTML = "Score: " + score;
+}
+
+function right() {
+	score++;
+	updatescore();
+	nextquestion();
+}
+
+function wrong() {
+	endgame();
+}
+
+function endgame() {
+	document.getElementById("quiz").innerHTML = '<br><br>You scored ' + score + '.<br>';
+	document.getElementById("quiz").innerHTML += '<br><br><br><button onclick="start()">Start again</button>';
+}
+
+function start() {
+	score=0;
+	updatescore();
+	document.getElementById("quiz").innerHTML = '<br><br><br><br><br><button onclick="nextquestion()">Start</button>';
+}
+
+
+function nextquestion() {
+	var randomturtle = Math.floor(Math.random() * ((turtles.length-1) - 0 + 1) );
+	var name = turtles[randomturtle].name;
+	var trait = turtles[randomturtle].trait;
+	var mask = turtles[randomturtle].mask;
+	var weapon = turtles[randomturtle].weapon;
+	var array = ['trait', 'mask', 'weapon'];    
+	var randomvalue = Math.floor(Math.random() * array.length);
+	var theanswer = array[randomvalue];
+	var answers = [];
+	for (let i = 0; i < 4; i++) {
+	  if (i == randomturtle) {
+	  	answers[i] = "<button onclick='right()'>" + turtles[i][array[randomvalue]] + "</button>";
+	  } else {
+	  	answers[i] = "<button onclick='wrong()'>" + turtles[i][array[randomvalue]] + "</button>";
+	  }
+	}
+	answers = answers.sort(() => Math.random() - 0.5);
+	document.getElementById("quiz").innerHTML = "<h1>" + name + "</h1>";
+	document.getElementById("quiz").innerHTML += "<h2>What " + array[randomvalue] + "?</h2>";
+	document.getElementById("quiz").innerHTML += answers[0] + "<br>";
+	document.getElementById("quiz").innerHTML += answers[1] + "<br>";
+	document.getElementById("quiz").innerHTML += answers[2] + "<br>";
+	document.getElementById("quiz").innerHTML += answers[3] + "<br>";
+}
+
+
+
+start();
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
