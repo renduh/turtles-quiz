@@ -60,11 +60,13 @@
 
 <div id="container">
 	<div id="score">Score: 0</div>  
+	<div id="highscore">Hi-score: 0</div>  
 	<div id="quiz"></div>
 </div>
 
 <script>
-
+var highscore = localStorage.getItem('highscore') || 0;
+var score = 0;
 var turtles = [
     {
       "name": "Leonardo",
@@ -92,10 +94,13 @@ var turtles = [
     },
 ]
 
-var score = 0;
-
 function updatescore() {
 	document.getElementById("score").innerHTML = "Score: " + score;
+	if (score > parseInt(highscore)) {
+		highscore = score;
+		localStorage.setItem('highscore', highscore);
+		document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
+	}
 }
 
 function right() {
@@ -109,16 +114,21 @@ function wrong() {
 }
 
 function endgame() {
+	if (score > parseInt(highscore)) {
+		highscore = score;
+		localStorage.setItem('highscore', highscore);
+		document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
+	}
 	document.getElementById("quiz").innerHTML = '<br><br>You scored ' + score + '.<br>';
 	document.getElementById("quiz").innerHTML += '<br><br><br><button onclick="start()">Start again</button>';
 }
 
 function start() {
+	document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
 	score=0;
 	updatescore();
 	document.getElementById("quiz").innerHTML = '<br><br><br><br><br><button onclick="nextquestion()">Start</button>';
 }
-
 
 function nextquestion() {
 	var randomturtle = Math.floor(Math.random() * ((turtles.length-1) - 0 + 1) );
@@ -151,26 +161,7 @@ function nextquestion() {
 
 start();
 
+
 </script>
-
-
-
-
-
-
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
