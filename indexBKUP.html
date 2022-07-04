@@ -85,14 +85,13 @@
 <div id="container">
 	<div id="scores">
 		<div id="score">Score: 0</div>  
-		<div id="timer">0</div>
 		<div id="highscore">Hi-score: 0</div>
 	</div>  
 	<div id="quiz"></div>
 </div>
 
 <script>
-var highscore = localStorage.getItem('timedhighscore') || 0;
+var highscore = localStorage.getItem('highscore') || 0;
 var score = 0;
 var turtles = [
     {
@@ -125,7 +124,7 @@ function updatescore() {
 	document.getElementById("score").innerHTML = "Score: " + score;
 	if (score > parseInt(highscore)) {
 		highscore = score;
-		localStorage.setItem('timedhighscore', highscore);
+		localStorage.setItem('highscore', highscore);
 		document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
 	}
 }
@@ -143,18 +142,15 @@ function wrong() {
 function endgame() {
 	if (score > parseInt(highscore)) {
 		highscore = score;
-		localStorage.setItem('timedhighscore', highscore);
+		localStorage.setItem('highscore', highscore);
 		document.getElementById("highscore").innerHTML = "Hi-score: " + highscore;
 	}
 	if (score < 5 ) {
 		document.getElementById("quiz").innerHTML = '<br><br><h1>Yikes!</h1><br>';
-		clearInterval(timerglobal);
 	} else if (score < 10 ) {
 		document.getElementById("quiz").innerHTML = "<br><br><h1>That's okay I guess</h1><br>";
-		clearInterval(timerglobal);
 	} else {
 		document.getElementById("quiz").innerHTML = '<br><br><h1>Cowabunga Dude!</h1><br>';
-		clearInterval(timerglobal);
 	}
 	document.getElementById("quiz").innerHTML += '<br><br>You scored ' + score + '.<br>';
 	document.getElementById("quiz").innerHTML += '<br><br><br><button onclick="start()">Give it another shot</button>';
@@ -165,34 +161,7 @@ function start() {
 	score=0;
 	updatescore();
 	document.getElementById("quiz").innerHTML = '<h1>Test your<br>Turtle knowledge!</h1>'; 
-	document.getElementById("quiz").innerHTML += "<h2>You've got 60 seconds!<br>Get one wrong and you're out!</h2>"; 
-	document.getElementById("quiz").innerHTML += '<br><br><br><br><br><button onclick="startquestions()">GO!</button>';
-	document.getElementById("timer").innerHTML = totaltime;
-}
-
-function startquestions() {
-	nextquestion();
-	clearInterval(timerglobal);
-	document.getElementById("timer").innerHTML = totaltime;
-	timer();
-}
-
-var timerglobal;
-var totaltime = 60;
-
-function timer() {
-	var start = Date.now();
-	timerglobal = setInterval(function() {
-	    var delta = Date.now() - start; // milliseconds elapsed since start
-	    var currenttime = totaltime - Math.floor(delta / 1000); // in seconds
-	    document.getElementById("timer").innerHTML = currenttime;
-	    if (currenttime == 0) {
-	    	endgame();
-	    	clearInterval(timerglobal);
-	    }
-	    // alternatively just show wall clock time:
-	    // output(new Date().toUTCString());
-	}, 1000); // update about every second
+	document.getElementById("quiz").innerHTML += '<br><br><br><br><br><button onclick="nextquestion()">Start</button>';
 }
 
 function nextquestion() {
